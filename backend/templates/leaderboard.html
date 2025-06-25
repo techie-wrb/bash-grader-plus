@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leaderboard - Bash Grader+</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body.dark-mode {
+      background-color: #121212;
+      color: white;
+    }
+
+    .dark-mode .table, .dark-mode .btn {
+      background-color: #1e1e1e;
+      color: white;
+    }
+
+    .toggle-container {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+  </style>
+</head>
+<body class="p-5">
+  <div class="toggle-container">
+    🌞 <input type="checkbox" id="themeToggle"> 🌙
+  </div>
+
+  <div class="container">
+    <h2 class="text-center mb-4">🏆 Leaderboard</h2>
+    <table class="table table-bordered text-center">
+      <thead class="table-light">
+        <tr>
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Filename</th>
+          <th>Score</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+          <td>{{ row[3] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="text-center">
+      <a href="/" class="btn btn-primary">🏠 Back to Upload</a>
+    </div>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', toggle.checked);
+    });
+
+    window.onload = () => {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      toggle.checked = isDark;
+      if (isDark) document.body.classList.add('dark-mode');
+    };
+  </script>
+</body>
+</html>
